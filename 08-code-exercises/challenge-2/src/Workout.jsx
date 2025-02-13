@@ -5,23 +5,13 @@ export default function Workout({ title, description, time, onComplete }) {
   const timer = useRef(null);
 
   function handleStartWorkout() {
-    if (timer.current) {
-      return;
-    }
-
     // Todo: Start timer
-    timer.current = setTimeout(() => {
-      onComplete();
-    }, time * 1000);
+    timer.current = setTimeout(handleStopWorkout, time);
   }
 
   function handleStopWorkout() {
     // Todo: Stop timer
-    if (timer.current) {
-      clearTimeout(timer.current);
-      timer.current = null;
-    }
-
+    clearTimeout(timer.current);
     onComplete();
   }
 
