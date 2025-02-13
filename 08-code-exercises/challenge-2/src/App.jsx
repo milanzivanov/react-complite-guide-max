@@ -1,64 +1,25 @@
-import { useState } from "react";
-import Workout from "./Workout";
-
-import "./App.css";
-
-const workouts = [
-  {
-    title: "Pushups",
-    description: "Do 30 pushups",
-    time: 1000 * 60 * 3
-  },
-  {
-    title: "Squats",
-    description: "Do 30 squats",
-    time: 1000 * 60 * 2
-  },
-  {
-    title: "Pullups",
-    description: "Do 10 pullups",
-    time: 1000 * 60 * 3
-  }
-];
+import { useRef } from "react";
 
 function App() {
-  const [completedWorkouts, setCompletedWorkouts] = useState([]);
+  const filePicker = useRef();
 
-  function handleWorkoutComplete(workoutTitle) {
-    setCompletedWorkouts((prevCompletedWorkouts) => [
-      ...prevCompletedWorkouts,
-      workoutTitle
-    ]);
+  function handleStartPickImage() {
+    filePicker.current.click();
   }
 
   return (
-    <main>
-      <section>
-        <h2>Choose a workout</h2>
-        <ul>
-          {workouts.map((workout) => (
-            <li key={workout.title}>
-              <Workout
-                title={workout.title}
-                description={workout.description}
-                time={workout.time}
-                // {...workout}
-                onComplete={() => handleWorkoutComplete(workout.title)}
-              />
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section>
-        <h2>Completed workouts</h2>
-        <ul>
-          {completedWorkouts.map((workoutTitle, index) => (
-            <li key={index}>{workoutTitle}</li>
-          ))}
-        </ul>
-      </section>
-    </main>
+    <div id="app">
+      <p>Please select an image</p>
+      <p>
+        <input
+          data-testid="file-picker"
+          type="file"
+          accept="image/*"
+          ref={filePicker}
+        />
+        <button onClick={handleStartPickImage}>Pick Image</button>
+      </p>
+    </div>
   );
 }
 
