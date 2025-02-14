@@ -1,35 +1,38 @@
-import { useState } from "react";
+/* eslint-disable react-refresh/only-export-components */
 
-import Toast from "./Toast";
+// CD23
+
+import { useRef } from "react";
+import Input from "./Input";
 
 import "./App.css";
-function App() {
-  const [isToastVisible, setIsToastVisible] = useState(false);
 
-  function handleEnrol() {
-    // Todo: Show toast
+export const userData = {
+  name: "",
+  email: ""
+};
 
-    setIsToastVisible(true);
+export default function App() {
+  const name = useRef();
+  const email = useRef();
 
-    setTimeout(() => {
-      // Todo: hide toast
-      setIsToastVisible(false);
-    }, 3000);
+  function handleSaveData() {
+    userData.name = name.current.value;
+    userData.email = email.current.value;
+
+    name.current.value = "";
+    email.current.value = "";
+
+    console.log(userData);
   }
 
   return (
     <div id="app">
-      {/* Todo: Render <Toast /> component (conditionally) here */}
-      {isToastVisible && <Toast message="You are now enrolled!" />}
-      <article>
-        <h2>React Course</h2>
-        <p>
-          A course that teaches you React from the ground up and in great depth!
-        </p>
-        <button onClick={handleEnrol}>Enrol</button>
-      </article>
+      <Input ref={name} type="text" label="name" />
+      <Input ref={email} type="email" label="email" />
+      <p id="actions">
+        <button onClick={handleSaveData}>Save Data</button>
+      </p>
     </div>
   );
 }
-
-export default App;
