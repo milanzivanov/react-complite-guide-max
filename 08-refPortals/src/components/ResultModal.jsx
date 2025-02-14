@@ -5,6 +5,10 @@ function ResultModal({ targetTime, ref, remainingTime, onReset }) {
   const formattedRemainingTime = (remainingTime / 1000).toFixed(2);
   const score = Math.round((1 - remainingTime / (targetTime * 1000)) * 100);
 
+  // Example Scenarios
+  // 10s => 10000ms => 10000 / 10000 = 1.0 => 1 - 1.0 = 0 => 0%
+  // 10s => 5000ms => 5000 / 10000 = 0.5 => 1 - 0.5 = 0.5 => 50%
+
   return createPortal(
     <dialog ref={ref} className="result-modal" onClose={onReset}>
       {userLost && <h2>Your lost</h2>}
