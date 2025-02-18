@@ -69,7 +69,8 @@ function App() {
   }
 
   return (
-    <CartContext.Provider>
+    // <CartContext.Provider>code hire...</CartContext.Provider> for old versions of the React
+    <CartContext>
       <Header
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
@@ -82,7 +83,7 @@ function App() {
           </li>
         ))}
       </Shop>
-    </CartContext.Provider>
+    </CartContext>
   );
 }
 
