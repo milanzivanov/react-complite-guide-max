@@ -42,6 +42,12 @@ function App() {
       const place = AVAILABLE_PLACES.find((place) => place.id === id);
       return [place, ...prevPickedPlaces];
     });
+
+    // one more side effect but hire we do not need useEffect
+    const storedIds = JSON.parese(localStorage.getItem("selectePlaces")) || [];
+    if (storedIds.indexOf(id) === -1) {
+      localStorage.setItem("selectePlaces", JSON.stringify([id, ...storedIds]));
+    }
   }
 
   function handleRemovePlace() {
