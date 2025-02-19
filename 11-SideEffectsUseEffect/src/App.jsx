@@ -49,7 +49,7 @@ function App() {
     });
 
     // one more side effect but hire we do not need useEffect
-    const storedIds = JSON.parese(localStorage.getItem("selectePlaces")) || [];
+    const storedIds = JSON.parse(localStorage.getItem("selectePlaces")) || [];
     if (storedIds.indexOf(id) === -1) {
       localStorage.setItem("selectePlaces", JSON.stringify([id, ...storedIds]));
     }
