@@ -3,16 +3,18 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./pages/RootLayout";
 import EventsRootLayout from "./pages/EventsRootLayout";
 import HomePage from "./pages/HomePage";
-import EventsPage from "./pages/EventsPage";
+import EventsPage, { loader as eventsLoader } from "./pages/EventsPage";
 import EventDetailPage from "./pages/EventDetailPage";
 import NewEventPage from "./pages/NewEventPage";
 import EditEventPage from "./pages/EditEventPage";
+import ErrorPage from "./pages/ErrorPage";
 
 // absolute path
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
       {
@@ -22,15 +24,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <EventsPage />,
-            loader: async () => {
-              const response = await fetch("http://localhost:8080/events");
-              if (!response.ok) {
-                //
-              } else {
-                const resData = await response.json();
-                return resData.events;
-              }
-            }
+            loader: eventsLoader
           },
           { path: "/events/:eventId", element: <EventDetailPage /> },
           { path: "/events/new", element: <NewEventPage /> },
