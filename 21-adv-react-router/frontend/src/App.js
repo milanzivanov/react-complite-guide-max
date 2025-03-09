@@ -12,6 +12,7 @@ import NewEventPage from "./pages/NewEventPage";
 import EditEventPage from "./pages/EditEventPage";
 import ErrorPage from "./pages/ErrorPage";
 import { action as manipulateEventAction } from "./components/EventForm";
+import NewsletterPage, { action as newsletterAction } from "./pages/Newsletter";
 
 // absolute path
 const router = createBrowserRouter([
@@ -53,6 +54,11 @@ const router = createBrowserRouter([
             action: manipulateEventAction
           }
         ]
+      },
+      {
+        path: "newsletter",
+        element: <NewsletterPage />,
+        action: newsletterAction
       }
     ]
   }
