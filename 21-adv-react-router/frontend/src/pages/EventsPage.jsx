@@ -1,17 +1,11 @@
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
 import { useLoaderData } from "react-router-dom";
-const EventsList = lazy(() => import("../components/EventsList"));
+import EventsList from "../components/EventsList";
 
 function EventsPage() {
   const { events } = useLoaderData();
 
   console.log("////////////// events", events);
-
-  if (!events) {
-    return <p style={{ textAlign: "center" }}>Loading...</p>;
-  }
-
-  // return <EventsList events={events} />;
 
   return (
     <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
