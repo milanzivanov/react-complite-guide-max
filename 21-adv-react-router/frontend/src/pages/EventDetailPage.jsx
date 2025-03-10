@@ -3,6 +3,7 @@ import EventItem from "../components/EventItem";
 
 function EventDetailPage() {
   const data = useRouteLoaderData("event-detail");
+  console.log("///////////////", data);
 
   return <EventItem event={data.event} />;
 }

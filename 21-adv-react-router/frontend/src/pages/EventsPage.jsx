@@ -1,26 +1,40 @@
+import { Suspense, lazy } from "react";
 import { useLoaderData } from "react-router-dom";
-import EventsList from "../components/EventsList";
+const EventsList = lazy(() => import("../components/EventsList"));
 
 function EventsPage() {
-  const data = useLoaderData();
+  const { events } = useLoaderData();
 
-  if (data.isError) {
-    return <p>{data.message}</p>;
+  console.log("////////////// events", events);
+
+  if (!events) {
+    return <p style={{ textAlign: "center" }}>Loading...</p>;
   }
-  const events = data.events;
 
-  return <EventsList events={events} />;
+  // return <EventsList events={events} />;
+
+  return (
+    <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+      <EventsList events={events} />
+    </Suspense>
+  );
 }
 
 export default EventsPage;
 
-export async function loader() {
+async function loadEvents() {
   const response = await fetch("http://localhost:8080/events");
   if (!response.ok) {
     throw new Response(JSON.stringify({ message: "Could not fetch events" }), {
       status: 500
     });
   } else {
-    return response;
+    const resData = await response.json();
+    return resData.events;
   }
+}
+
+export async function loader() {
+  const events = await loadEvents();
+  return { events };
 }
